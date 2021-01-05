@@ -1,9 +1,8 @@
 import React, { Suspense } from 'react'
-import { BrowserRouter, Route, Switch, Redirect, Link } from 'react-router-dom'
-
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import './App.scss'
-import NotFound from './components/NotFound'
 import Header from './components/Header'
+import NotFound from './components/NotFound'
 
 // Lazy loading - Code splitting
 const Photo = React.lazy(() => import('./features/Photo'))
