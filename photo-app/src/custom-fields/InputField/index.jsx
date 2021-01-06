@@ -1,6 +1,6 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import { FormFeedback, FormGroup, Input, Label } from 'reactstrap'
+import React from 'react'
+import { FormGroup, Input, Label, FormFeedback } from 'reactstrap'
 import { ErrorMessage } from 'formik'
 
 InputField.propTypes = {
@@ -38,6 +38,7 @@ function InputField(props) {
         placeholder={placeholder}
         invalid={showError}
       />
+
       <ErrorMessage name={name} component={FormFeedback} />
     </FormGroup>
   )

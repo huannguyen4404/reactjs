@@ -17,7 +17,7 @@ RandomPhoto.defaultProps = {
   onRandomButtonBlur: null,
 }
 
-const getRandomImgUrl = () => {
+const getRandomImageUrl = () => {
   const randomId = Math.trunc(Math.random() * 2000)
   return `https://picsum.photos/id/${randomId}/300/300`
 }
@@ -25,10 +25,10 @@ const getRandomImgUrl = () => {
 function RandomPhoto(props) {
   const { name, imageUrl, onImageUrlChange, onRandomButtonBlur } = props
 
-  const handleRandPhotoClick = async () => {
+  const handleRandomPhotoClick = async () => {
     if (onImageUrlChange) {
-      const randomImgUrl = getRandomImgUrl()
-      onImageUrlChange(randomImgUrl)
+      const randomImageUrl = getRandomImageUrl()
+      onImageUrlChange(randomImageUrl)
     }
   }
 
@@ -40,7 +40,7 @@ function RandomPhoto(props) {
           name={name}
           color="primary"
           onBlur={onRandomButtonBlur}
-          onClick={handleRandPhotoClick}
+          onClick={handleRandomPhotoClick}
         >
           Random a photo
         </Button>
@@ -51,6 +51,7 @@ function RandomPhoto(props) {
           <img
             src={imageUrl}
             alt="Ooops ... not found. Please click random again!"
+            onError={handleRandomPhotoClick}
           />
         )}
       </div>

@@ -1,11 +1,11 @@
-import InputField from 'components/custom-fields/InputField'
-import RandomPhotoField from 'components/custom-fields/RandomPhotoField'
-import SelectField from 'components/custom-fields/SelectField'
 import { PHOTO_CATEGORY_OPTIONS } from 'constants/global'
+import InputField from 'custom-fields/InputField'
+import RandomPhotoField from 'custom-fields/RandomPhotoField'
+import SelectField from 'custom-fields/SelectField'
 import { FastField, Form, Formik } from 'formik'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Button, FormGroup } from 'reactstrap'
+import { Button, FormGroup, Spinner } from 'reactstrap'
 import * as Yup from 'yup'
 
 PhotoForm.propTypes = {
@@ -17,32 +17,30 @@ PhotoForm.defaultProps = {
 }
 
 function PhotoForm(props) {
-  const initialValues = {
-    title: '',
-    categoryId: null,
-    photo: '',
-  }
+  const { initialValues, isAddMode } = props
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required('This field is required'),
+    title: Yup.string().required('This field is required.'),
 
-    categoryId: Yup.number().required('This field is required').nullable(),
+    categoryId: Yup.number().required('This field is required.').nullable(),
 
     photo: Yup.string().when('categoryId', {
       is: 1,
-      then: Yup.string().required('This field is required'),
+      then: Yup.string().required('This field is required.'),
       otherwise: Yup.string().notRequired(),
     }),
   })
 
+  // npm i --save react-select
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => console.log('Submit:', values)}
+      onSubmit={props.onSubmit}
     >
       {(formikProps) => {
-        const { values, errors, touched } = formikProps
+        // do something here ...
+        const { values, errors, touched, isSubmitting } = formikProps
         console.log({ values, errors, touched })
 
         return (
@@ -69,7 +67,10 @@ function PhotoForm(props) {
             />
 
             <FormGroup>
-              <Button color="primary">Add to album</Button>
+              <Button type="submit" color={isAddMode ? 'primary' : 'success'}>
+                {isSubmitting && <Spinner size="sm" />}
+                {isAddMode ? 'Add to album' : 'Update your photo'}
+              </Button>
             </FormGroup>
           </Form>
         )

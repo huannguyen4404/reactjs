@@ -18,7 +18,6 @@ RandomPhotoField.defaultProps = {
 function RandomPhotoField(props) {
   const { field, form, label } = props
   const { name, value, onBlur } = field
-
   const { errors, touched } = form
   const showError = errors[name] && touched[name]
 
@@ -37,7 +36,7 @@ function RandomPhotoField(props) {
         onRandomButtonBlur={onBlur}
       />
 
-      {showError && <div className="is-invalid"></div>}
+      <div className={showError ? 'is-invalid' : ''}></div>
       <ErrorMessage name={name} component={FormFeedback} />
     </FormGroup>
   )
